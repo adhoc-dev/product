@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Product UOMS',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'category': 'base.module_category_knowledge_management',
     'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
@@ -32,11 +32,11 @@
         'demo/product_uoms_demo.xml',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/product_uoms_data.xml',
         'views/product_template_views.xml',
-        'security/ir.model.access.csv',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }

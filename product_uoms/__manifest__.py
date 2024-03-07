@@ -37,6 +37,6 @@
         'views/product_template_views.xml',
     ],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
     'application': False,
 }

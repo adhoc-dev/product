@@ -13,15 +13,33 @@ class PurchaseOrderLine(models.Model):
     uom_unit_ids = fields.Many2many(
         'uom.uom',
         compute='_compute_uom_unit')
+    # product_uom = fields.Many2one(
+    #     'uom.uom', 
+    #     string='Unit of Measure',
+    #     compute='_compute_product_uom',
+    #     domain="[('category_id', '=', product_uom_category_id)]")
 
     @api.depends('product_id')
     def _compute_uom_unit(self):
         for rec in self:
+            if not rec.product_uom or (rec.product_id.uom_id.id != rec.product_uom.id):
+                rec.product_uom = rec.product_id.uom_id
             if rec.product_id:
                 rec.uom_unit_ids = rec.product_id.get_product_uoms(
                     rec.product_id.uom_po_id, use='purchase')
             else:
                 rec.uom_unit_ids = False
+
+    # @api.depends('product_id')
+    # def _compute_product_uom(self):
+    #     for rec in self:
+    #         if not rec.product_uom or (rec.product_id.uom_id.id != rec.product_uom.id):
+    #             rec.product_uom = rec.product_id.uom_id
+    #         if rec.product_id:
+    #             purchase_product_uoms = rec.product_id.get_product_uoms(
+    #                 rec.product_id.uom_id, use='purchase')
+    #             if purchase_product_uoms:
+    #                 rec.product_uom = purchase_product_uoms[0].id
 
     @api.onchange('product_id')
     def onchange_product_id(self):

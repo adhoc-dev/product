@@ -33,6 +33,7 @@ To configure this module, you need to:
 #. Enter to product and go to the purchase window.
 #. In the purchase packagings field, you will define the purchase UoMs for the product.
 #. Also, you can add the product uom with the use product uom checkbox.
+#. When that checkbox is off, the purchase order line starts on the first purchase packaging instead of the product UoM.
 
 Usage
 =====

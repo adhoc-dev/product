@@ -19,3 +19,10 @@ class PurchaseOrderLine(models.Model):
                     line.allowed_uom_ids = product.uom_id | product.uom_po_ids | supplier_uoms
                 else:
                     line.allowed_uom_ids = product.uom_po_ids | supplier_uoms
+
+    def _product_id_change(self):
+        """The product UoM is out of allowed_uom_ids when use_product_uom is off: start on a packaging."""
+        super()._product_id_change()
+        product = self.product_id
+        if product and not product.product_tmpl_id.use_product_uom and product.uom_po_ids:
+            self.product_uom_id = product.uom_po_ids[0]
